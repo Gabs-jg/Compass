@@ -147,18 +147,3 @@ Conferir Dados Retornados Atualizado
 Validar Status Code "${status_code}"
     [Documentation]    Valida se o código de status HTTP é o esperado.
     Should Be Equal As Integers    ${RESPONSE.status_code}    ${status_code}
-
-# Keywords de Setup
-Preparar Booking Para Deleção
-    [Documentation]    Prepara um booking completo para teste de deleção.
-    Criar Token
-    Criar Booking
-    Buscar Booking Pelo Id
-    Conferir Dados Retornados
-
-Preparar Booking Para Atualização
-    [Documentation]    Prepara um booking completo para teste de atualização.
-    Criar Token
-    Criar Booking
-    Buscar Booking Pelo Id
-    Conferir Dados Retornados

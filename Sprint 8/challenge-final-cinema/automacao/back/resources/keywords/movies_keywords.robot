@@ -1,28 +1,38 @@
 *** Settings ***
-Resource    ../base.robot
+Resource  ../base.robot
 
 *** Keywords ***
-Listar Todos Filmes
-    [Arguments]    ${token}
-    ${response}=    GET On Session    api    /movies    headers=${{"Authorization": "Bearer ${token}"}}
-    [Return]    ${response}
-
 Criar Filme
     [Arguments]    ${dados}    ${token}
-    ${response}=    POST On Session    api    /movies    json=${dados}    headers=${{"Authorization": "Bearer ${token}"}}
-    [Return]    ${response}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
+    ${response}=   POST On Session    api    /movies    json=${dados}    headers=${headers}
+    Log To Console    Criando filme: ${dados['title']}
+    RETURN    ${response}
 
 Visualizar Detalhes Filme
     [Arguments]    ${movie_id}    ${token}
-    ${response}=    GET On Session    api    /movies/${movie_id}    headers=${{"Authorization": "Bearer ${token}"}}
-    [Return]    ${response}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
+    ${response}=   GET On Session    api    /movies/${movie_id}    headers=${headers}
+    Log To Console    Visualizando detalhes do filme: ${movie_id}
+    RETURN    ${response}
 
-Atualizar Filme Existente
+Listar Todos Filmes
+    [Arguments]    ${token}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
+    ${response}=   GET On Session    api    /movies    headers=${headers}
+    Log To Console    Listando todos os filmes
+    RETURN    ${response}
+
+Atualizar Filme
     [Arguments]    ${movie_id}    ${dados}    ${token}
-    ${response}=    PUT On Session    api    /movies/${movie_id}    json=${dados}    headers=${{"Authorization": "Bearer ${token}"}}
-    [Return]    ${response}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
+    ${response}=   PUT On Session    api    /movies/${movie_id}    json=${dados}    headers=${headers}
+    Log To Console    Atualizando filme: ${movie_id}
+    RETURN    ${response}
 
-Deletar Filme Existente
+Deletar Filme
     [Arguments]    ${movie_id}    ${token}
-    ${response}=    DELETE On Session    api    /movies/${movie_id}    headers=${{"Authorization": "Bearer ${token}"}}
-    [Return]    ${response}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}    Content-Type=application/json
+    ${response}=   DELETE On Session    api    /movies/${movie_id}    headers=${headers}
+    Log To Console    Deletando filme: ${movie_id}
+    RETURN    ${response}

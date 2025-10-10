@@ -1,0 +1,2297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-10-10T13:55:11.345768" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests">
+<suite id="s1-s1" name="Test Auth" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_auth.robot">
+<test id="s1-s1-t1" name="Registrar Usuario Com Dados Validos" line="11">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.584509" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:11.584207" elapsed="0.000527"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.584858" elapsed="0.000288"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.583592" elapsed="0.001670"/>
+</kw>
+<kw name="Registrar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.586232" level="INFO">&amp;{body} = { name=Nome Teste | email=teste@teste.com | password=Senha123 }</msg>
+<var>&amp;{body}</var>
+<arg>name=${nome}</arg>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.585870" elapsed="0.000397"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.745332" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/register 
+ path_url=/api/v1/auth/register 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '74'} 
+ body=b'{"name": "Nome Teste", "email": "teste@teste.com", "password": "Senha123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:11.745555" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/register 
+ status=201, reason=Created 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '300', 'ETag': 'W/"12c-sVIe/8R2ajL1pI00EgP49VUuTVU"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e93a6f66bf911aa99f4a2d","name":"Nome Teste","email":"teste@teste.com","role":"user","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc"}} 
+ </msg>
+<msg time="2025-10-10T13:55:11.745833" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/register</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.586376" elapsed="0.159519"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Registrando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.746207" elapsed="0.000728"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.747069" elapsed="0.000105"/>
+</return>
+<msg time="2025-10-10T13:55:11.747490" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<var>${response}</var>
+<arg>${NOME_TEST}</arg>
+<arg>${EMAIL_TEST}</arg>
+<arg>${SENHA_TEST}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.585556" elapsed="0.161994"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.749205" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.748053" elapsed="0.001307"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.582906" elapsed="0.166994"/>
+</test>
+<test id="s1-s1-t2" name="Registrar Usuario Com Email Ja Cadastrado" line="16">
+<kw name="Registrar Usuario Email Existente" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.754069" level="INFO">&amp;{body} = { name=Nome Teste | email=teste@teste.com | password=Senha123 }</msg>
+<var>&amp;{body}</var>
+<arg>name=${nome}</arg>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.753272" elapsed="0.000868"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.760610" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/register 
+ path_url=/api/v1/auth/register 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '74'} 
+ body=b'{"name": "Nome Teste", "email": "teste@teste.com", "password": "Senha123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:11.760755" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/register 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '49', 'ETag': 'W/"31-WKEMg8zALB1Ko0WjUHi/6RBGHVc"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"User already exists"} 
+ </msg>
+<msg time="2025-10-10T13:55:11.761000" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/register</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=400</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.754430" elapsed="0.006629"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Tentando registrar e-mail existente: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.761335" elapsed="0.000627"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.762089" elapsed="0.000092"/>
+</return>
+<msg time="2025-10-10T13:55:11.762477" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>${NOME_TEST}</arg>
+<arg>${EMAIL_TEST}</arg>
+<arg>${SENHA_TEST}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.752365" elapsed="0.010176"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.764346" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.763054" elapsed="0.001520"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.751333" elapsed="0.013838"/>
+</test>
+<test id="s1-s1-t3" name="Registrar Usuario Com Dados Invalidos" line="20">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.767961" level="INFO">${dados} = {'name': '', 'email': 'invalid', 'password': '123'}</msg>
+<var>${dados}</var>
+<arg>name=</arg>
+<arg>email=invalid</arg>
+<arg>password=123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.767518" elapsed="0.000511"/>
+</kw>
+<kw name="Registrar Usuario Dados Invalidos" owner="auth_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.778419" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/register 
+ path_url=/api/v1/auth/register 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '51'} 
+ body=b'{"name": "", "email": "invalid", "password": "123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:11.778569" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/register 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '180', 'ETag': 'W/"b4-qdjdGB9JDvx9Ra7KbY/m7FzVOTo"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Validation failed","errors":{"name":"Name is required","email":"Please provide a valid email","password":"Password must be at least 6 characters long"}} 
+ </msg>
+<msg time="2025-10-10T13:55:11.778833" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/register</arg>
+<arg>json=${dados}</arg>
+<arg>expected_status=400</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.769385" elapsed="0.009512"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Registrando usuário com dados inválidos</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.779232" elapsed="0.000435"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.779750" elapsed="0.000048"/>
+</return>
+<msg time="2025-10-10T13:55:11.779999" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>${dados}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.768806" elapsed="0.011234"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.781020" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.780335" elapsed="0.000765"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.766644" elapsed="0.014765"/>
+</test>
+<test id="s1-s1-t4" name="Autenticar Usuario Valido" line="25">
+<kw name="Autenticar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.783573" level="INFO">&amp;{body} = { email=teste@teste.com | password=Senha123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.783261" elapsed="0.000348"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.872908" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '52'} 
+ body=b'{"email": "teste@teste.com", "password": "Senha123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:11.872985" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '300', 'ETag': 'W/"12c-sVIe/8R2ajL1pI00EgP49VUuTVU"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e93a6f66bf911aa99f4a2d","name":"Nome Teste","email":"teste@teste.com","role":"user","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc"}} 
+ </msg>
+<msg time="2025-10-10T13:55:11.873104" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.783745" elapsed="0.089385"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Autenticando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.873273" elapsed="0.000321"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.873652" elapsed="0.000047"/>
+</return>
+<msg time="2025-10-10T13:55:11.873830" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${EMAIL_TEST}</arg>
+<arg>${SENHA_TEST}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.782894" elapsed="0.090969"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.874504" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.874132" elapsed="0.000422"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.875158" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc</msg>
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.874793" elapsed="0.000390"/>
+</kw>
+<kw name="Atualizar Token" owner="auth_keywords">
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.875859" level="INFO">${AUTH_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc</msg>
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.875697" elapsed="0.000199"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.876137" level="INFO">${AUTH_HEADER} = Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc</msg>
+<arg>${AUTH_HEADER}</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.875989" elapsed="0.000184"/>
+</kw>
+<arg>${token}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.875463" elapsed="0.000759"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.782331" elapsed="0.094123"/>
+</test>
+<test id="s1-s1-t5" name="Autenticar Usuario Inexistente" line="31">
+<kw name="Autenticar Usuario Inexistente" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.878116" level="INFO">&amp;{body} = { email=inexistente@teste.com | password=Senha123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.877867" elapsed="0.000277"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.881142" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '58'} 
+ body=b'{"email": "inexistente@teste.com", "password": "Senha123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:11.881204" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '55', 'ETag': 'W/"37-5uDpJTljPBecOPs/j7OXFdPRcmQ"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Invalid email or password"} 
+ </msg>
+<msg time="2025-10-10T13:55:11.881307" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=401</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.878341" elapsed="0.002991"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Tentando autenticar usuário inexistente: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.881460" elapsed="0.000336"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.881852" elapsed="0.000039"/>
+</return>
+<msg time="2025-10-10T13:55:11.882025" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>inexistente@teste.com</arg>
+<arg>${SENHA_TEST}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.877612" elapsed="0.004437"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.882761" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.882284" elapsed="0.000534"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.877172" elapsed="0.005925"/>
+</test>
+<test id="s1-s1-t6" name="Autenticar Com Senha Incorreta" line="35">
+<kw name="Autenticar Senha Incorreta" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.884985" level="INFO">&amp;{body} = { email=teste@teste.com | password=SenhaErrada }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.884691" elapsed="0.000324"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.969494" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '55'} 
+ body=b'{"email": "teste@teste.com", "password": "SenhaErrada"}' 
+ </msg>
+<msg time="2025-10-10T13:55:11.969574" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '55', 'ETag': 'W/"37-5uDpJTljPBecOPs/j7OXFdPRcmQ"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Invalid email or password"} 
+ </msg>
+<msg time="2025-10-10T13:55:11.969692" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=401</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.885139" elapsed="0.084577"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Tentando autenticar com senha incorreta: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.969862" elapsed="0.000363"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.970303" elapsed="0.000060"/>
+</return>
+<msg time="2025-10-10T13:55:11.970548" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<var>${response}</var>
+<arg>${EMAIL_TEST}</arg>
+<arg>SenhaErrada</arg>
+<status status="PASS" start="2025-10-10T13:55:11.884363" elapsed="0.086231"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.971235" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.970842" elapsed="0.000447"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.883869" elapsed="0.087674"/>
+</test>
+<test id="s1-s1-t7" name="Visualizar Perfil Usuario Logado" line="39">
+<kw name="Visualizar Perfil Usuario Logado" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.973212" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.973005" elapsed="0.000234"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.977503" level="INFO">GET Request : url=http://localhost:3000/api/v1/auth/me 
+ path_url=/api/v1/auth/me 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTkzYTZmNjZiZjkxMWFhOTlmNGEyZCIsImlhdCI6MTc2MDExNTMxMSwiZXhwIjoxNzYwMjAxNzExfQ.CipGAaCfEnzgfsQqgMXkjVnRoOBtvHr42ZSvCuZxSKc'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:11.977572" level="INFO">GET Response : url=http://localhost:3000/api/v1/auth/me 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '118', 'ETag': 'W/"76-eJ6lqCCHqdhzqkOz+sm/UWIWDsk"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e93a6f66bf911aa99f4a2d","name":"Nome Teste","email":"teste@teste.com","role":"user"}} 
+ </msg>
+<msg time="2025-10-10T13:55:11.977673" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/me</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.973336" elapsed="0.004360"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Visualizando perfil do usuário logado</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.977823" elapsed="0.000286"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:11.978160" elapsed="0.000057"/>
+</return>
+<msg time="2025-10-10T13:55:11.978411" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${AUTH_TOKEN}</arg>
+<status status="PASS" start="2025-10-10T13:55:11.972745" elapsed="0.005701"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.979549" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.978797" elapsed="0.000841"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:11.972272" elapsed="0.007603"/>
+</test>
+<status status="PASS" start="2025-10-10T13:55:11.379610" elapsed="0.601381"/>
+</suite>
+<suite id="s1-s2" name="Test Movies" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_movies.robot">
+<test id="s1-s2-t1" name="Login Admin" line="12">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:11.991852" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:11.991553" elapsed="0.000526"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.992204" elapsed="0.000367"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.991143" elapsed="0.001510"/>
+</kw>
+<kw name="Autenticar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:11.993669" level="INFO">&amp;{body} = { email=admin@example.com | password=admin123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.993311" elapsed="0.000419"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.077298" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '54'} 
+ body=b'{"email": "admin@example.com", "password": "admin123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.077374" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '303', 'ETag': 'W/"12f-5sq0wYfXP+RZfBDs1ILWohCiT18"', 'Date': 'Fri, 10 Oct 2025 16:55:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e879d9708894909568c216","name":"Admin User","email":"admin@example.com","role":"admin","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc"}} 
+ </msg>
+<msg time="2025-10-10T13:55:12.077504" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:11.993910" elapsed="0.083619"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Autenticando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.077698" elapsed="0.000386"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.078151" elapsed="0.000043"/>
+</return>
+<msg time="2025-10-10T13:55:12.078346" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>admin@example.com</arg>
+<arg>admin123</arg>
+<status status="PASS" start="2025-10-10T13:55:11.993025" elapsed="0.085352"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.079061" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.078643" elapsed="0.000473"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.079767" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.079376" elapsed="0.000416"/>
+</kw>
+<kw name="Atualizar Token" owner="auth_keywords">
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.080464" level="INFO">${AUTH_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.080317" elapsed="0.000185"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.080736" level="INFO">${AUTH_HEADER} = Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_HEADER}</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.080593" elapsed="0.000178"/>
+</kw>
+<arg>${token}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.080073" elapsed="0.000747"/>
+</kw>
+<doc>Autentica o usuário admin e atualiza o token global</doc>
+<status status="PASS" start="2025-10-10T13:55:11.990184" elapsed="0.090873"/>
+</test>
+<test id="s1-s2-t2" name="Criar Filme" line="20">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.082494" level="INFO">${dados} = {'title': 'Filme Teste', 'director': 'Diretor X', 'year': '2025'}</msg>
+<var>${dados}</var>
+<arg>title=${MOVIE_TITLE}</arg>
+<arg>director=${MOVIE_DIRECTOR}</arg>
+<arg>year=${MOVIE_YEAR}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.082220" elapsed="0.000302"/>
+</kw>
+<kw name="Criar Filme" owner="movies_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.083303" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.083104" elapsed="0.000227"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.088999" level="INFO">POST Request : url=http://localhost:3000/api/v1/movies 
+ path_url=/api/v1/movies 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', 'Content-Length': '65'} 
+ body=b'{"title": "Filme Teste", "director": "Diretor X", "year": "2025"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.089080" level="INFO">POST Response : url=http://localhost:3000/api/v1/movies 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '228', 'ETag': 'W/"e4-s3Fh+fqkoBKVnqFIKV4AcZyQuXI"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Validation failed","errors":{"releaseDate":"Release date is required","classification":"Age classification is required","duration":"Duration in minutes is required","synopsis":"Synopsis is required"}} 
+ </msg>
+<msg time="2025-10-10T13:55:12.089243" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/movies</arg>
+<arg>json=${dados}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.083437" elapsed="0.008381">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Criando filme: ${dados['title']}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.092011" elapsed="0.000026"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.092085" elapsed="0.000019"/>
+</return>
+<var>${response}</var>
+<arg>${dados}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.082827" elapsed="0.009396">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.092514" elapsed="0.000022"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<var>${movie_id}</var>
+<arg>${response.json()['data']['_id']}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.092793" elapsed="0.000022"/>
+</kw>
+<doc>Cria um novo filme usando o token do admin</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.081809" elapsed="0.011293">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies</status>
+</test>
+<test id="s1-s2-t3" name="Visualizar Detalhes Filme" line="27">
+<kw name="Visualizar Detalhes Filme" owner="movies_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.095338" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.095022" elapsed="0.000380"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.229509" level="INFO">GET Request : url=http://localhost:3000/api/v1/movies/None 
+ path_url=/api/v1/movies/None 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.229684" level="INFO">GET Response : url=http://localhost:3000/api/v1/movies/None 
+ status=404, reason=Not Found 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '45', 'ETag': 'W/"2d-76yzoZ3aJF1oDN8vFKpqErDRmpM"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Movie not found"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.229939" level="FAIL">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/movies/None</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/movies/${movie_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.095607" elapsed="0.136464">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/movies/None</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Visualizando detalhes do filme: ${movie_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.232447" elapsed="0.000061"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.232617" elapsed="0.000043"/>
+</return>
+<var>${response}</var>
+<arg>${movie_id}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.094562" elapsed="0.138328">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/movies/None</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.233505" elapsed="0.000058"/>
+</kw>
+<doc>Visualiza os detalhes do filme criado</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.094005" elapsed="0.140148">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/movies/None</status>
+</test>
+<test id="s1-s2-t4" name="Listar Todos Filmes" line="32">
+<kw name="Listar Todos Filmes" owner="movies_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.238346" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.237785" elapsed="0.000634"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.249027" level="INFO">GET Request : url=http://localhost:3000/api/v1/movies 
+ path_url=/api/v1/movies 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.249224" level="INFO">GET Response : url=http://localhost:3000/api/v1/movies 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1075', 'ETag': 'W/"433-RmZBKrdwS/7PaO3/RBNsg7tk9o4"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"count":3,"pagination":{},"data":[{"_id":"68e8e3d452c422e76f646a6d","customId":"2","title":"The Avengers","synopsis":"Earth's mightiest heroes must come together to save the world.","director":"Joss Whedon","genres":["Action","Adventure"],"duration":143,"classification":"PG-13","poster":"avengers.jpg","releaseDate":"2012-05-04T00:00:00.000Z","id":"68e8e3d452c422e76f646a6d"},{"_id":"68e8e3d452c422e76f646a6c","customId":"1","title":"Inception","synopsis":"A thief who enters the dreams of others to steal their secrets.","director":"Christopher Nolan","genres":["Science Fiction","Action"],"duration":148,"classification":"PG-13","poster":"inception.jpg","releaseDate":"2010-07-16T00:00:00.000Z","id":"68e8e3d452c422e76f646a6c"},{"_id":"68e8e3d452c422e76f646a6e","customId":"3","title":"The Shawshank Redemption","synopsis":"Two imprisoned men bond over a number of years.","director":"Frank Darabont","genres":["Drama"],"duration":142,"classification":"R","poster":"shawshank.jpg","releaseDate":"1994-09-23T00:00:00.000Z","id":"68e8e3d452c422e76f646a6e"}]} 
+ </msg>
+<msg time="2025-10-10T13:55:12.249647" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/movies</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.238677" elapsed="0.011050"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Listando todos os filmes</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.250122" elapsed="0.000770"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.251102" elapsed="0.000145"/>
+</return>
+<msg time="2025-10-10T13:55:12.251747" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${AUTH_TOKEN}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.237141" elapsed="0.014728"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.253930" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.252475" elapsed="0.001611"/>
+</kw>
+<doc>Lista todos os filmes usando o token do admin</doc>
+<status status="PASS" start="2025-10-10T13:55:12.236065" elapsed="0.018559"/>
+</test>
+<test id="s1-s2-t5" name="Atualizar Filme" line="37">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.258335" level="INFO">${dados} = {'title': 'Filme Atualizado', 'director': 'Diretor Y', 'year': '2026'}</msg>
+<var>${dados}</var>
+<arg>title=Filme Atualizado</arg>
+<arg>director=Diretor Y</arg>
+<arg>year=2026</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.257846" elapsed="0.000565"/>
+</kw>
+<kw name="Atualizar Filme" owner="movies_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.259993" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.259646" elapsed="0.000391"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.266413" level="INFO">PUT Request : url=http://localhost:3000/api/v1/movies/None 
+ path_url=/api/v1/movies/None 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', 'Content-Length': '70'} 
+ body=b'{"title": "Filme Atualizado", "director": "Diretor Y", "year": "2026"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.266529" level="INFO">PUT Response : url=http://localhost:3000/api/v1/movies/None 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1565', 'ETag': 'W/"61d-nVdK8oYiKOTmlnAWHVXnqUQaNRI"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Resource not found","stack":"CastError: Cast to ObjectId failed for value \"None\" (type string) at path \"_id\" for model \"Movie\"\n    at SchemaObjectId.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n    at SchemaType.applySetters (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1255:12)\n    at SchemaType.castForQuery (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1673:17)\n    at cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:5055:12)\n    at Query._castConditions (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2351:10)\n    at model.Query._findOne (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2674:8)\n    at model.Query.exec (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:4604:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async exports.updateMovie (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\src\\controllers\\movieController.js:132:19)"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.266702" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/movies/${movie_id}</arg>
+<arg>json=${dados}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.260194" elapsed="0.007733">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Atualizando filme: ${movie_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.268164" elapsed="0.000037"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.268265" elapsed="0.000028"/>
+</return>
+<var>${response}</var>
+<arg>${movie_id}</arg>
+<arg>${dados}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.259055" elapsed="0.009373">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.268807" elapsed="0.000033"/>
+</kw>
+<doc>Atualiza os dados de um filme existente</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.256428" elapsed="0.012774">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</status>
+</test>
+<test id="s1-s2-t6" name="Deletar Filme" line="43">
+<kw name="Deletar Filme" owner="movies_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.272310" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.271869" elapsed="0.000494"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.279146" level="INFO">DELETE Request : url=http://localhost:3000/api/v1/movies/None 
+ path_url=/api/v1/movies/None 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.279387" level="INFO">DELETE Response : url=http://localhost:3000/api/v1/movies/None 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1565', 'ETag': 'W/"61d-erd5o4yBxJ0+TGn8PAZ2SKeZqTs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Resource not found","stack":"CastError: Cast to ObjectId failed for value \"None\" (type string) at path \"_id\" for model \"Movie\"\n    at SchemaObjectId.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n    at SchemaType.applySetters (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1255:12)\n    at SchemaType.castForQuery (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1673:17)\n    at cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:5055:12)\n    at Query._castConditions (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2351:10)\n    at model.Query._findOne (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2674:8)\n    at model.Query.exec (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:4604:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async exports.deleteMovie (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\src\\controllers\\movieController.js:163:19)"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.279570" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/movies/${movie_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.272564" elapsed="0.008210">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Deletando filme: ${movie_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.281008" elapsed="0.000038"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.281110" elapsed="0.000027"/>
+</return>
+<var>${response}</var>
+<arg>${movie_id}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.271100" elapsed="0.010170">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.281679" elapsed="0.000033"/>
+</kw>
+<doc>Deleta o filme criado</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.270352" elapsed="0.011759">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/movies/None</status>
+</test>
+<status status="FAIL" start="2025-10-10T13:55:11.981953" elapsed="0.301552"/>
+</suite>
+<suite id="s1-s3" name="Test Reservations" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_reservations.robot">
+<test id="s1-s3-t1" name="Criar Reserva" line="32">
+<kw name="Criar Usuario Se Não Existir">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.299345" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.299008" elapsed="0.000558"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.299736" elapsed="0.000417"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.298709" elapsed="0.001554"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.300809" level="INFO">${payload} = {'email': 'user@example.com', 'password': 'user123', 'role': 'user'}</msg>
+<var>${payload}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<arg>role=${role}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.300422" elapsed="0.000426"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.307439" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/register 
+ path_url=/api/v1/auth/register 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '68'} 
+ body=b'{"email": "user@example.com", "password": "user123", "role": "user"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.307546" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/register 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '84', 'ETag': 'W/"54-ngttIdQLZ4eaUkzci3s3HkS64jw"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Validation failed","errors":{"name":"Name is required"}} 
+ </msg>
+<msg time="2025-10-10T13:55:12.307696" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/auth/register</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/register</arg>
+<arg>json=${payload}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.301004" elapsed="0.008071">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/auth/register</status>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>'${response.status_code}' != '201'</arg>
+<arg>Log To Console</arg>
+<arg>Usuário já existe</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.309387" elapsed="0.000042"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.309684" elapsed="0.000043"/>
+</kw>
+<arg>${USER_EMAIL}</arg>
+<arg>${USER_PASSWORD}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.298166" elapsed="0.011716">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/auth/register</status>
+</kw>
+<kw name="Login Usuario">
+<var>${token}</var>
+<arg>${USER_EMAIL}</arg>
+<arg>${USER_PASSWORD}</arg>
+<status status="NOT RUN" start="2025-10-10T13:55:12.310375" elapsed="0.000037"/>
+</kw>
+<kw name="Criar Sessão da API" owner="base">
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.310813" elapsed="0.000039"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<var>${payload}</var>
+<arg>session_id=1</arg>
+<arg>assentos=[1,2]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.311228" elapsed="0.000034"/>
+</kw>
+<kw name="Criar Reserva" owner="reservations_keywords">
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${token}</arg>
+<status status="NOT RUN" start="2025-10-10T13:55:12.311658" elapsed="0.000038"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.312050" elapsed="0.000034"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<var>${RESERVATION_ID}</var>
+<arg>${response.json()['data']['_id']}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.312454" elapsed="0.000033"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.312887" elapsed="0.000039"/>
+</kw>
+<doc>Usuário comum cria uma nova reserva</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.297436" elapsed="0.015879">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/auth/register</status>
+</test>
+<test id="s1-s3-t2" name="Visualizar Minhas Reservas" line="44">
+<kw name="Login Usuario">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.316455" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.316116" elapsed="0.001376"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.317659" elapsed="0.000421"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.315828" elapsed="0.002442"/>
+</kw>
+<kw name="Autenticar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.319960" level="INFO">&amp;{body} = { email=user@example.com | password=user123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.319458" elapsed="0.000555"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.325505" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '52'} 
+ body=b'{"email": "user@example.com", "password": "user123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.325622" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '55', 'ETag': 'W/"37-5uDpJTljPBecOPs/j7OXFdPRcmQ"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Invalid email or password"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.325800" level="FAIL">Url: http://localhost:3000/api/v1/auth/login Expected status: 401 != 200</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.320196" elapsed="0.007621">Url: http://localhost:3000/api/v1/auth/login Expected status: 401 != 200</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Autenticando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.328053" elapsed="0.000045"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.328179" elapsed="0.000030"/>
+</return>
+<var>${response}</var>
+<arg>${email}</arg>
+<arg>${senha}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.318649" elapsed="0.009714">Url: http://localhost:3000/api/v1/auth/login Expected status: 401 != 200</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.328556" elapsed="0.000033"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.328757" elapsed="0.000030"/>
+</kw>
+<kw name="Atualizar Token" owner="auth_keywords">
+<arg>${token}</arg>
+<status status="NOT RUN" start="2025-10-10T13:55:12.329010" elapsed="0.000039"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.329253" elapsed="0.000037"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.329352" elapsed="0.000023"/>
+</return>
+<var>${token}</var>
+<arg>${USER_EMAIL}</arg>
+<arg>${USER_PASSWORD}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.315357" elapsed="0.014148">Url: http://localhost:3000/api/v1/auth/login Expected status: 401 != 200</status>
+</kw>
+<kw name="Criar Sessão da API" owner="base">
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.329935" elapsed="0.000041"/>
+</kw>
+<kw name="Visualizar Minhas Reservas" owner="reservations_keywords">
+<var>${response}</var>
+<arg>${token}</arg>
+<status status="NOT RUN" start="2025-10-10T13:55:12.330384" elapsed="0.000039"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.330771" elapsed="0.000033"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.331198" elapsed="0.000039"/>
+</kw>
+<doc>Usuário comum lista suas reservas</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.314601" elapsed="0.017024">Url: http://localhost:3000/api/v1/auth/login Expected status: 401 != 200</status>
+</test>
+<test id="s1-s3-t3" name="Atualizar Status da Reserva" line="52">
+<kw name="Login Usuario">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.334886" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.334471" elapsed="0.000640"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.335350" elapsed="0.000394"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.334052" elapsed="0.001807"/>
+</kw>
+<kw name="Autenticar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.337084" level="INFO">&amp;{body} = { email=admin@example.com | password=admin123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.336648" elapsed="0.000482"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.435349" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '54'} 
+ body=b'{"email": "admin@example.com", "password": "admin123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.435434" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '303', 'ETag': 'W/"12f-5sq0wYfXP+RZfBDs1ILWohCiT18"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e879d9708894909568c216","name":"Admin User","email":"admin@example.com","role":"admin","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc"}} 
+ </msg>
+<msg time="2025-10-10T13:55:12.435562" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.337314" elapsed="0.098275"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Autenticando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.435755" elapsed="0.000351"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.436167" elapsed="0.000043"/>
+</return>
+<msg time="2025-10-10T13:55:12.436345" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${email}</arg>
+<arg>${senha}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.336145" elapsed="0.100226"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.436897" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.436473" elapsed="0.000479"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.437483" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.437058" elapsed="0.000451"/>
+</kw>
+<kw name="Atualizar Token" owner="auth_keywords">
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.438052" level="INFO">${AUTH_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.437895" elapsed="0.000194"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.438336" level="INFO">${AUTH_HEADER} = Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_HEADER}</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.438184" elapsed="0.000187"/>
+</kw>
+<arg>${token}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.437642" elapsed="0.000776"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.438756" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2025-10-10T13:55:12.438691" elapsed="0.000281"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessões encerradas com sucesso.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.439091" elapsed="0.000210"/>
+</kw>
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.438525" elapsed="0.000845"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2025-10-10T13:55:12.439428" elapsed="0.000032"/>
+</return>
+<msg time="2025-10-10T13:55:12.439563" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<var>${token}</var>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.333453" elapsed="0.106133"/>
+</kw>
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.440229" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.440030" elapsed="0.000312"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.440436" elapsed="0.000270"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.439797" elapsed="0.001005"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.441197" level="INFO">${payload} = {'status': 'confirmada'}</msg>
+<var>${payload}</var>
+<arg>status=confirmada</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.441032" elapsed="0.000189"/>
+</kw>
+<kw name="Atualizar Status Da Reserva" owner="reservations_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.442311" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.442003" elapsed="0.000403"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.448219" level="INFO">PUT Request : url=http://localhost:3000/api/v1/reservations/None 
+ path_url=/api/v1/reservations/None 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', 'Content-Length': '24'} 
+ body=b'{"status": "confirmada"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.448302" level="INFO">PUT Response : url=http://localhost:3000/api/v1/reservations/None 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '91', 'ETag': 'W/"5b-HMo9691vLmAH+H/QxIWuHMnmGWI"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Please provide a valid status (pending, confirmed, cancelled)"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.448425" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/reservations/${reservation_id}</arg>
+<arg>json=${dados}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.442564" elapsed="0.007039">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Atualizando reserva: ${reservation_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.449891" elapsed="0.000040"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.450006" elapsed="0.000030"/>
+</return>
+<var>${response}</var>
+<arg>${RESERVATION_ID}</arg>
+<arg>${payload}</arg>
+<arg>${token}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.441531" elapsed="0.008677">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.450527" elapsed="0.000022"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.450851" elapsed="0.000030"/>
+</kw>
+<doc>Admin atualiza o status da reserva</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.332827" elapsed="0.118362">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</status>
+</test>
+<test id="s1-s3-t4" name="Deletar Reserva" line="61">
+<kw name="Login Usuario">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.453508" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.453230" elapsed="0.000448"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.453874" elapsed="0.000402"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.453005" elapsed="0.001372"/>
+</kw>
+<kw name="Autenticar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.455204" level="INFO">&amp;{body} = { email=admin@example.com | password=admin123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.454927" elapsed="0.000328"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.550949" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '54'} 
+ body=b'{"email": "admin@example.com", "password": "admin123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.551063" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '303', 'ETag': 'W/"12f-5sq0wYfXP+RZfBDs1ILWohCiT18"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e879d9708894909568c216","name":"Admin User","email":"admin@example.com","role":"admin","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc"}} 
+ </msg>
+<msg time="2025-10-10T13:55:12.551245" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.455452" elapsed="0.095837"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Autenticando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.551516" elapsed="0.000446"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.552051" elapsed="0.000063"/>
+</return>
+<msg time="2025-10-10T13:55:12.552332" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${email}</arg>
+<arg>${senha}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.454637" elapsed="0.097738"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.553241" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.552558" elapsed="0.000776"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.554169" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.553500" elapsed="0.000722"/>
+</kw>
+<kw name="Atualizar Token" owner="auth_keywords">
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.555014" level="INFO">${AUTH_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.554730" elapsed="0.000352"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.555536" level="INFO">${AUTH_HEADER} = Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_HEADER}</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.555250" elapsed="0.000354"/>
+</kw>
+<arg>${token}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.554430" elapsed="0.001270"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.556238" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2025-10-10T13:55:12.556146" elapsed="0.000173"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessões encerradas com sucesso.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.556424" elapsed="0.000446"/>
+</kw>
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.555875" elapsed="0.001097"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2025-10-10T13:55:12.557042" elapsed="0.000054"/>
+</return>
+<msg time="2025-10-10T13:55:12.557314" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<var>${token}</var>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.452669" elapsed="0.104693"/>
+</kw>
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.558811" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.558310" elapsed="0.000749"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.559280" elapsed="0.000610"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.557794" elapsed="0.002240"/>
+</kw>
+<kw name="Deletar Reserva" owner="reservations_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.562126" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.561529" elapsed="0.000681"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.568582" level="INFO">DELETE Request : url=http://localhost:3000/api/v1/reservations/None 
+ path_url=/api/v1/reservations/None 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.568668" level="INFO">DELETE Response : url=http://localhost:3000/api/v1/reservations/None 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1583', 'ETag': 'W/"62f-F+d1oXM1p2J1gZ0ZJTiZ4D5n4pI"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Resource not found","stack":"CastError: Cast to ObjectId failed for value \"None\" (type string) at path \"_id\" for model \"Reservation\"\n    at SchemaObjectId.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n    at SchemaType.applySetters (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1255:12)\n    at SchemaType.castForQuery (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1673:17)\n    at cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:5055:12)\n    at Query._castConditions (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2351:10)\n    at model.Query._findOne (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2674:8)\n    at model.Query.exec (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:4604:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async exports.deleteReservation (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\src\\controllers\\reservationController.js:278:25)"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.568790" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/reservations/${reservation_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.562530" elapsed="0.007035">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Deletando reserva: ${reservation_id}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.569727" elapsed="0.000026"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.569799" elapsed="0.000019"/>
+</return>
+<var>${response}</var>
+<arg>${RESERVATION_ID}</arg>
+<arg>${token}</arg>
+<status status="FAIL" start="2025-10-10T13:55:12.560733" elapsed="0.009173">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.570113" elapsed="0.000019"/>
+</kw>
+<kw name="Encerrar Sessão da API" owner="base">
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.570336" elapsed="0.000065"/>
+</kw>
+<doc>Admin deleta a reserva criada</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.452169" elapsed="0.118414">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/reservations/None</status>
+</test>
+<status status="FAIL" start="2025-10-10T13:55:12.284966" elapsed="0.286303"/>
+</suite>
+<suite id="s1-s4" name="Test Sessions" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_sessions.robot">
+<test id="s1-s4-t1" name="Listar Todas as Sessões" line="5">
+<kw name="Listar Todas as Sessões" owner="sessions_keywords">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.592696" level="INFO">GET Request : url=http://localhost:3000/api/v1/sessions 
+ path_url=/api/v1/sessions 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.592775" level="INFO">GET Response : url=http://localhost:3000/api/v1/sessions 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '52', 'ETag': 'W/"34-XZQ4O8GgELyv1f9Utec7nJM0ii8"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"count":0,"pagination":{},"data":[]} 
+ </msg>
+<msg time="2025-10-10T13:55:12.592905" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/sessions</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.588038" elapsed="0.004893"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.592997" elapsed="0.000040"/>
+</return>
+<msg time="2025-10-10T13:55:12.593164" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<doc>Lista todas as sessões disponíveis</doc>
+<status status="PASS" start="2025-10-10T13:55:12.587815" elapsed="0.005373"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.593801" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.593414" elapsed="0.000441"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:12.587378" elapsed="0.006636"/>
+</test>
+<test id="s1-s4-t2" name="Criar Sessão" line="9">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.595792" level="INFO">${payload} = {'movie_id': '1', 'theater_id': '1', 'horario': '2025-10-10T20:00:00'}</msg>
+<var>${payload}</var>
+<arg>movie_id=1</arg>
+<arg>theater_id=1</arg>
+<arg>horario=2025-10-10T20:00:00</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.595331" elapsed="0.000517"/>
+</kw>
+<kw name="Criar Sessão" owner="sessions_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.596781" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.596560" elapsed="0.000250"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.608416" level="INFO">POST Request : url=http://localhost:3000/api/v1/sessions 
+ path_url=/api/v1/sessions 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None', 'Content-Length': '70'} 
+ body=b'{"movie_id": "1", "theater_id": "1", "horario": "2025-10-10T20:00:00"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.608585" level="INFO">POST Response : url=http://localhost:3000/api/v1/sessions 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '65', 'ETag': 'W/"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not authorized to access this route"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.608776" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.596922" elapsed="0.012823">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.609835" elapsed="0.000024"/>
+</return>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Cria uma nova sessão (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.596192" elapsed="0.013764">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.610289" elapsed="0.000049"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.594627" elapsed="0.016061">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions</status>
+</test>
+<test id="s1-s4-t3" name="Visualizar Detalhes da Sessão" line="14">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.611951" level="INFO">${session_id} = 1</msg>
+<var>${session_id}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.611797" elapsed="0.000182"/>
+</kw>
+<kw name="Visualizar Detalhes da Sessão" owner="sessions_keywords">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.614869" level="INFO">GET Request : url=http://localhost:3000/api/v1/sessions/1 
+ path_url=/api/v1/sessions/1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.614938" level="INFO">GET Response : url=http://localhost:3000/api/v1/sessions/1 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1568', 'ETag': 'W/"620-NcKgVGJOZmVvflQU1VOXTl6w4DE"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Resource not found","stack":"CastError: Cast to ObjectId failed for value \"1\" (type string) at path \"_id\" for model \"Session\"\n    at SchemaObjectId.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n    at SchemaType.applySetters (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1255:12)\n    at SchemaType.castForQuery (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1673:17)\n    at cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:5055:12)\n    at Query._castConditions (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2351:10)\n    at model.Query._findOne (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2674:8)\n    at model.Query.exec (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:4604:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async exports.getSessionById (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\src\\controllers\\sessionController.js:86:21)"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.615140" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/sessions/1</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/sessions/${session_id}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.612473" elapsed="0.003481">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/sessions/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.616021" elapsed="0.000020"/>
+</return>
+<var>${response}</var>
+<arg>${session_id}</arg>
+<doc>Obtém os detalhes de uma sessão específica</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.612227" elapsed="0.003895">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/sessions/1</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.616398" elapsed="0.000021"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.611444" elapsed="0.005223">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/sessions/1</status>
+</test>
+<test id="s1-s4-t4" name="Atualizar Sessão" line="19">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.617897" level="INFO">${session_id} = 1</msg>
+<var>${session_id}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.617755" elapsed="0.000169"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.618295" level="INFO">${payload} = {'movie_id': '1', 'theater_id': '1', 'horario': '2025-10-11T20:00:00'}</msg>
+<var>${payload}</var>
+<arg>movie_id=1</arg>
+<arg>theater_id=1</arg>
+<arg>horario=2025-10-11T20:00:00</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.618116" elapsed="0.000206"/>
+</kw>
+<kw name="Atualizar Sessão" owner="sessions_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.619050" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.618864" elapsed="0.000210"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.621812" level="INFO">PUT Request : url=http://localhost:3000/api/v1/sessions/1 
+ path_url=/api/v1/sessions/1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None', 'Content-Length': '70'} 
+ body=b'{"movie_id": "1", "theater_id": "1", "horario": "2025-10-11T20:00:00"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.621871" level="INFO">PUT Response : url=http://localhost:3000/api/v1/sessions/1 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '65', 'ETag': 'W/"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not authorized to access this route"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.621963" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/sessions/${session_id}</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.619162" elapsed="0.003606">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.622845" elapsed="0.000021"/>
+</return>
+<var>${response}</var>
+<arg>${session_id}</arg>
+<arg>${payload}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Atualiza uma sessão existente (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.618566" elapsed="0.004389">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.623238" elapsed="0.000021"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.617370" elapsed="0.006133">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</status>
+</test>
+<test id="s1-s4-t5" name="Deletar Sessão" line="25">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.625002" level="INFO">${session_id} = 1</msg>
+<var>${session_id}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.624816" elapsed="0.000224"/>
+</kw>
+<kw name="Deletar Sessão" owner="sessions_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.626374" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.626042" elapsed="0.000366"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.628818" level="INFO">DELETE Request : url=http://localhost:3000/api/v1/sessions/1 
+ path_url=/api/v1/sessions/1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.628887" level="INFO">DELETE Response : url=http://localhost:3000/api/v1/sessions/1 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '65', 'ETag': 'W/"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not authorized to access this route"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.628997" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/sessions/${session_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.626542" elapsed="0.003371">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.630004" elapsed="0.000025"/>
+</return>
+<var>${response}</var>
+<arg>${session_id}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Deleta uma sessão existente (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.625481" elapsed="0.004667">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.630412" elapsed="0.000023"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.624268" elapsed="0.006426">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/sessions/1</status>
+</test>
+<status status="FAIL" start="2025-10-10T13:55:12.572064" elapsed="0.059664"/>
+</suite>
+<suite id="s1-s5" name="Test Theaters" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_theaters.robot">
+<test id="s1-s5-t1" name="Listar Todos Teatros" line="5">
+<kw name="Listar Todos Teatros" owner="theaters_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.642312" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.642076" elapsed="0.000266"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.713000" level="INFO">GET Request : url=http://localhost:3000/api/v1/theaters 
+ path_url=/api/v1/theaters 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.713084" level="INFO">GET Response : url=http://localhost:3000/api/v1/theaters 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '36', 'ETag': 'W/"24-YA2qaqoHN76SgtFfK4UBGqyVP1w"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"count":0,"data":[]} 
+ </msg>
+<msg time="2025-10-10T13:55:12.713207" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/theaters</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.642472" elapsed="0.070760"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.713308" elapsed="0.000047"/>
+</return>
+<msg time="2025-10-10T13:55:12.713492" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Lista todos os teatros disponíveis</doc>
+<status status="PASS" start="2025-10-10T13:55:12.641758" elapsed="0.071759"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.714261" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.713831" elapsed="0.000487"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:12.641013" elapsed="0.073561"/>
+</test>
+<test id="s1-s5-t2" name="Criar Teatro" line="9">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.715888" level="INFO">${dados} = {'name': 'Teatro Teste', 'location': 'Cidade X'}</msg>
+<var>${dados}</var>
+<arg>name=Teatro Teste</arg>
+<arg>location=Cidade X</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.715714" elapsed="0.000201"/>
+</kw>
+<kw name="Criar Teatro" owner="theaters_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.716700" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.716511" elapsed="0.000215"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.719411" level="INFO">POST Request : url=http://localhost:3000/api/v1/theaters 
+ path_url=/api/v1/theaters 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None', 'Content-Length': '48'} 
+ body=b'{"name": "Teatro Teste", "location": "Cidade X"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.719513" level="INFO">POST Response : url=http://localhost:3000/api/v1/theaters 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '65', 'ETag': 'W/"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not authorized to access this route"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.719685" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/theaters</arg>
+<arg>json=${dados}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.716826" elapsed="0.004306">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.721312" elapsed="0.000046"/>
+</return>
+<var>${response}</var>
+<arg>${dados}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Cria um novo teatro (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.716233" elapsed="0.005417">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.722043" elapsed="0.000026"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.715320" elapsed="0.007038">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters</status>
+</test>
+<test id="s1-s5-t3" name="Visualizar Detalhes Teatro" line="14">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.723980" level="INFO">${theater_id} = 1</msg>
+<var>${theater_id}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.723826" elapsed="0.000182"/>
+</kw>
+<kw name="Visualizar Detalhes Teatro" owner="theaters_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.724753" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.724556" elapsed="0.000220"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.728376" level="INFO">GET Request : url=http://localhost:3000/api/v1/theaters/1 
+ path_url=/api/v1/theaters/1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.728468" level="INFO">GET Response : url=http://localhost:3000/api/v1/theaters/1 
+ status=400, reason=Bad Request 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1568', 'ETag': 'W/"620-0ND+3eGzKdyoNrJsCXDJqZ025u0"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Resource not found","stack":"CastError: Cast to ObjectId failed for value \"1\" (type string) at path \"_id\" for model \"Theater\"\n    at SchemaObjectId.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n    at SchemaType.applySetters (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1255:12)\n    at SchemaType.castForQuery (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\schemaType.js:1673:17)\n    at cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:5055:12)\n    at Query._castConditions (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2351:10)\n    at model.Query._findOne (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:2674:8)\n    at model.Query.exec (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\mongoose\\lib\\query.js:4604:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async exports.getTheaterById (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\src\\controllers\\theaterController.js:29:21)"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.728656" level="FAIL">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/theaters/1</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/theaters/${theater_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.724867" elapsed="0.004649">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/theaters/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.729607" elapsed="0.000024"/>
+</return>
+<var>${response}</var>
+<arg>${theater_id}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Retorna os detalhes de um teatro específico</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.724287" elapsed="0.005442">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/theaters/1</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.730009" elapsed="0.000024"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.723263" elapsed="0.006997">HTTPError: 400 Client Error: Bad Request for url: http://localhost:3000/api/v1/theaters/1</status>
+</test>
+<test id="s1-s5-t4" name="Atualizar Teatro Existente" line="19">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.731504" level="INFO">${theater_id} = 1</msg>
+<var>${theater_id}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.731363" elapsed="0.000169"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.731885" level="INFO">${dados} = {'name': 'Teatro Atualizado'}</msg>
+<var>${dados}</var>
+<arg>name=Teatro Atualizado</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.731726" elapsed="0.000185"/>
+</kw>
+<kw name="Atualizar Teatro Existente" owner="theaters_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.732644" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.732451" elapsed="0.000217"/>
+</kw>
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.793423" level="INFO">PUT Request : url=http://localhost:3000/api/v1/theaters/1 
+ path_url=/api/v1/theaters/1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None', 'Content-Length': '29'} 
+ body=b'{"name": "Teatro Atualizado"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.793499" level="INFO">PUT Response : url=http://localhost:3000/api/v1/theaters/1 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '65', 'ETag': 'W/"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not authorized to access this route"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.793605" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/theaters/${theater_id}</arg>
+<arg>json=${dados}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.732760" elapsed="0.061662">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.794510" elapsed="0.000025"/>
+</return>
+<var>${response}</var>
+<arg>${theater_id}</arg>
+<arg>${dados}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Atualiza as informações de um teatro existente</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.732154" elapsed="0.062471">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.794986" elapsed="0.000042"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.730955" elapsed="0.064389">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</status>
+</test>
+<test id="s1-s5-t5" name="Deletar Teatro Existente" line="25">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.796715" level="INFO">${theater_id} = 1</msg>
+<var>${theater_id}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.796567" elapsed="0.000175"/>
+</kw>
+<kw name="Deletar Teatro Existente" owner="theaters_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.797723" level="INFO">${headers} = {'Authorization': 'Bearer None'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.797423" elapsed="0.000337"/>
+</kw>
+<kw name="DELETE On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.799792" level="INFO">DELETE Request : url=http://localhost:3000/api/v1/theaters/1 
+ path_url=/api/v1/theaters/1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer None', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:12.799855" level="INFO">DELETE Response : url=http://localhost:3000/api/v1/theaters/1 
+ status=401, reason=Unauthorized 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '65', 'ETag': 'W/"41-TJq3LYiwj1On+7IZ17oLU5tM1Zs"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not authorized to access this route"} 
+ </msg>
+<msg time="2025-10-10T13:55:12.799956" level="FAIL">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/theaters/${theater_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.797879" elapsed="0.002939">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</status>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:12.800895" elapsed="0.000021"/>
+</return>
+<var>${response}</var>
+<arg>${theater_id}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Deleta um teatro existente (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.797012" elapsed="0.004003">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:12.801317" elapsed="0.000023"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.796213" elapsed="0.005416">HTTPError: 401 Client Error: Unauthorized for url: http://localhost:3000/api/v1/theaters/1</status>
+</test>
+<status status="FAIL" start="2025-10-10T13:55:12.632582" elapsed="0.170132"/>
+</suite>
+<suite id="s1-s6" name="Test Users" source="C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_users.robot">
+<test id="s1-s6-t1" name="Preparar Admin" line="10">
+<kw name="Criar Sessão da API" owner="base">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.813506" level="INFO">Creating Session using : alias=api, url=http://localhost:3000/api/v1, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${BASE_URL}</arg>
+<arg>headers=${DEFAULT_HEADERS}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-10T13:55:12.813124" elapsed="0.000577"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessão criada com a API: ${BASE_URL}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.813837" elapsed="0.000330"/>
+</kw>
+<doc>Cria a sessão inicial com a API, configurando cabeçalhos padrão.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.812886" elapsed="0.001372"/>
+</kw>
+<kw name="Autenticar Usuario Valido" owner="auth_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.815171" level="INFO">&amp;{body} = { email=admin@example.com | password=admin123 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${email}</arg>
+<arg>password=${senha}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.814911" elapsed="0.000288"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:12.899052" level="INFO">POST Request : url=http://localhost:3000/api/v1/auth/login 
+ path_url=/api/v1/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '54'} 
+ body=b'{"email": "admin@example.com", "password": "admin123"}' 
+ </msg>
+<msg time="2025-10-10T13:55:12.899138" level="INFO">POST Response : url=http://localhost:3000/api/v1/auth/login 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '303', 'ETag': 'W/"12f-5sq0wYfXP+RZfBDs1ILWohCiT18"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"data":{"_id":"68e879d9708894909568c216","name":"Admin User","email":"admin@example.com","role":"admin","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc"}} 
+ </msg>
+<msg time="2025-10-10T13:55:12.899262" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.815304" elapsed="0.083985"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Autenticando usuário válido: ${email}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.899444" elapsed="0.000355"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:12.899866" elapsed="0.000051"/>
+</return>
+<msg time="2025-10-10T13:55:12.900074" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASSWORD}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.814584" elapsed="0.085531"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.900697" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.900333" elapsed="0.000414"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.901313" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<var>${token}</var>
+<arg>${response.json()['data']['token']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.900933" elapsed="0.000406"/>
+</kw>
+<kw name="Atualizar Token" owner="auth_keywords">
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.901932" level="INFO">${AUTH_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.901790" elapsed="0.000179"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.902251" level="INFO">${AUTH_HEADER} = Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc</msg>
+<arg>${AUTH_HEADER}</arg>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.902063" elapsed="0.000223"/>
+</kw>
+<arg>${token}</arg>
+<status status="PASS" start="2025-10-10T13:55:12.901563" elapsed="0.000779"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:12.812294" elapsed="0.090219"/>
+</test>
+<test id="s1-s6-t2" name="Criar Usuario Para Teste" line="17">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.903692" level="INFO">${payload} = {'name': 'Usuario Teste', 'email': 'teste_user@example.com', 'password': '123456'}</msg>
+<var>${payload}</var>
+<arg>name=Usuario Teste</arg>
+<arg>email=teste_user@example.com</arg>
+<arg>password=123456</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.903539" elapsed="0.000177"/>
+</kw>
+<kw name="Criar Usuario" owner="users_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:12.904397" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', ...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:12.904208" elapsed="0.000215"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:13.138522" level="INFO">POST Request : url=http://localhost:3000/api/v1/users 
+ path_url=/api/v1/users 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc', 'Content-Length': '82'} 
+ body=b'{"name": "Usuario Teste", "email": "teste_user@example.com", "password": "123456"}' 
+ </msg>
+<msg time="2025-10-10T13:55:13.138616" level="INFO">POST Response : url=http://localhost:3000/api/v1/users 
+ status=404, reason=Not Found 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1346', 'ETag': 'W/"542-bterPmIIPkYeXemCmq8lHQxcQOo"', 'Date': 'Fri, 10 Oct 2025 16:55:12 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":false,"message":"Not Found - /api/v1/users","stack":"Error: Not Found - /api/v1/users\n    at exports.notFound (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\src\\middleware\\error.js:22:17)\n    at Layer.handleRequest (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\lib\\layer.js:152:17)\n    at trimPrefix (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:342:13)\n    at C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:297:9\n    at processParams (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:291:5)\n    at C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:688:15\n    at next (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:276:14)\n    at C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:688:15\n    at next (C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\cinema-challenge-back\\node_modules\\router\\index.js:276:14)"} 
+ </msg>
+<msg time="2025-10-10T13:55:13.138803" level="FAIL">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/users</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>json=${dados}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.904522" elapsed="0.235343">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/users</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Criando usuário: ${dados}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:13.140048" elapsed="0.000025"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="NOT RUN" start="2025-10-10T13:55:13.140117" elapsed="0.000019"/>
+</return>
+<var>${response}</var>
+<arg>${payload}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Cria um usuário novo (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:12.903945" elapsed="0.236281">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/users</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>201</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:13.140536" elapsed="0.000025"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<var>${USER_ID}</var>
+<arg>${response.json()['data']['_id']}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:13.140812" elapsed="0.000021"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:12.903095" elapsed="0.238003">HTTPError: 404 Client Error: Not Found for url: http://localhost:3000/api/v1/users</status>
+</test>
+<test id="s1-s6-t3" name="Listar Todos Usuarios" line="23">
+<kw name="Listar Todos Usuarios" owner="users_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:13.143151" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:13.142922" elapsed="0.000259"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:13.147880" level="INFO">GET Request : url=http://localhost:3000/api/v1/users 
+ path_url=/api/v1/users 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTg3OWQ5NzA4ODk0OTA5NTY4YzIxNiIsImlhdCI6MTc2MDExNTMxMiwiZXhwIjoxNzYwMjAxNzEyfQ.GDy6NJytjuzFFX5p4U29sH54IEWMCmU7TWQ7NkD-9Bc'} 
+ body=None 
+ </msg>
+<msg time="2025-10-10T13:55:13.147952" level="INFO">GET Response : url=http://localhost:3000/api/v1/users 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '400', 'ETag': 'W/"190-oT7C4JTtURAhgSNPsNf4GuOsRPY"', 'Date': 'Fri, 10 Oct 2025 16:55:13 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"success":true,"count":2,"data":[{"_id":"68e879d9708894909568c216","name":"Admin User","email":"admin@example.com","role":"admin","createdAt":"2025-10-10T03:13:29.401Z","updatedAt":"2025-10-10T03:13:29.401Z","__v":0},{"_id":"68e93a6f66bf911aa99f4a2d","name":"Nome Teste","email":"teste@teste.com","role":"user","createdAt":"2025-10-10T16:55:11.588Z","updatedAt":"2025-10-10T16:55:11.588Z","__v":0}]} 
+ </msg>
+<msg time="2025-10-10T13:55:13.148062" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api</arg>
+<arg>/users</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-10-10T13:55:13.143297" elapsed="0.004790"/>
+</kw>
+<return>
+<value>${response}</value>
+<status status="PASS" start="2025-10-10T13:55:13.148153" elapsed="0.000041"/>
+</return>
+<msg time="2025-10-10T13:55:13.148327" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Lista todos os usuários cadastrados (admin)</doc>
+<status status="PASS" start="2025-10-10T13:55:13.142601" elapsed="0.005755"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2025-10-10T13:55:13.149225" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2025-10-10T13:55:13.148682" elapsed="0.000607"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:13.142121" elapsed="0.007447"/>
+</test>
+<test id="s1-s6-t4" name="Atualizar Usuario Existente" line="27">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-10-10T13:55:13.150910" level="INFO">${dados} = {'name': 'Nome Atualizado'}</msg>
+<var>${dados}</var>
+<arg>name=Nome Atualizado</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-10-10T13:55:13.150691" elapsed="0.000257"/>
+</kw>
+<kw name="Atualizar Usuario Existente" owner="users_keywords">
+<msg time="2025-10-10T13:55:13.152131" level="FAIL">Variable '${USER_ID}' not found.</msg>
+<var>${response}</var>
+<arg>${USER_ID}</arg>
+<arg>${dados}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Atualiza os dados de um usuário específico (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:13.151262" elapsed="0.000935">Variable '${USER_ID}' not found.</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:13.152467" elapsed="0.000022"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:13.150323" elapsed="0.002434">Variable '${USER_ID}' not found.</status>
+</test>
+<test id="s1-s6-t5" name="Deletar Usuario Existente" line="32">
+<kw name="Deletar Usuario Existente" owner="users_keywords">
+<msg time="2025-10-10T13:55:13.156025" level="FAIL">Variable '${USER_ID}' not found.</msg>
+<var>${response}</var>
+<arg>${USER_ID}</arg>
+<arg>${AUTH_TOKEN}</arg>
+<doc>Deleta um usuário específico (admin)</doc>
+<status status="FAIL" start="2025-10-10T13:55:13.154809" elapsed="0.001320">Variable '${USER_ID}' not found.</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-10T13:55:13.156628" elapsed="0.000078"/>
+</kw>
+<status status="FAIL" start="2025-10-10T13:55:13.153652" elapsed="0.003687">Variable '${USER_ID}' not found.</status>
+</test>
+<test id="s1-s6-t6" name="Encerrar Sessao" line="36">
+<kw name="Encerrar Sessão da API" owner="base">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2025-10-10T13:55:13.159144" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2025-10-10T13:55:13.159071" elapsed="0.000148"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Sessões encerradas com sucesso.</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-10-10T13:55:13.159313" elapsed="0.000277"/>
+</kw>
+<doc>Encerra todas as sessões criadas durante a execução dos testes.</doc>
+<status status="PASS" start="2025-10-10T13:55:13.158795" elapsed="0.000885"/>
+</kw>
+<status status="PASS" start="2025-10-10T13:55:13.158192" elapsed="0.001729"/>
+</test>
+<status status="FAIL" start="2025-10-10T13:55:12.803476" elapsed="0.357148"/>
+</suite>
+<status status="FAIL" start="2025-10-10T13:55:11.347323" elapsed="1.814401"/>
+</suite>
+<statistics>
+<total>
+<stat pass="14" fail="19" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Tests" id="s1" pass="14" fail="19" skip="0">Tests</stat>
+<stat name="Test Auth" id="s1-s1" pass="7" fail="0" skip="0">Tests.Test Auth</stat>
+<stat name="Test Movies" id="s1-s2" pass="2" fail="4" skip="0">Tests.Test Movies</stat>
+<stat name="Test Reservations" id="s1-s3" pass="0" fail="4" skip="0">Tests.Test Reservations</stat>
+<stat name="Test Sessions" id="s1-s4" pass="1" fail="4" skip="0">Tests.Test Sessions</stat>
+<stat name="Test Theaters" id="s1-s5" pass="1" fail="4" skip="0">Tests.Test Theaters</stat>
+<stat name="Test Users" id="s1-s6" pass="3" fail="3" skip="0">Tests.Test Users</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-10-10T13:55:11.334936" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\tests\test_reservations.robot' on line 29: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.581760" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\sessions_keywords.robot' on line 8: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.582382" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\sessions_keywords.robot' on line 15: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.582820" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\sessions_keywords.robot' on line 21: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.583292" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\sessions_keywords.robot' on line 28: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.583661" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\sessions_keywords.robot' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.635397" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\theaters_keywords.robot' on line 10: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.635793" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\theaters_keywords.robot' on line 17: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.636194" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\theaters_keywords.robot' on line 24: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.636550" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\theaters_keywords.robot' on line 31: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.636900" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\theaters_keywords.robot' on line 38: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.806227" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\users_keywords.robot' on line 11: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.806773" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\users_keywords.robot' on line 18: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.807240" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\users_keywords.robot' on line 26: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-10-10T13:55:12.807747" level="WARN">Error in file 'C:\Users\gabri\OneDrive\Área de Trabalho\Compass\Sprint 8\challenge-final-cinema\automacao\back\resources\keywords\users_keywords.robot' on line 34: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

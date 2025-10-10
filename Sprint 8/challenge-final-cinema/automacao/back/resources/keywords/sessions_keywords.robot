@@ -4,30 +4,32 @@ Resource    ../base.robot
 *** Keywords ***
 Listar Todas as Sessões
     [Documentation]    Lista todas as sessões disponíveis
-    GET    /sessions
-    ${response}=    Get Request    api    /sessions
+    ${response}=    Get On Session    api    /sessions
     [Return]    ${response}
 
 Criar Sessão
-    [Arguments]    ${payload}
+    [Arguments]    ${payload}    ${token}
     [Documentation]    Cria uma nova sessão (admin)
-    ${response}=    Post Request    api    /sessions    json=${payload}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${response}=    Post On Session    api    /sessions    json=${payload}    headers=${headers}
     [Return]    ${response}
 
 Visualizar Detalhes da Sessão
     [Arguments]    ${session_id}
     [Documentation]    Obtém os detalhes de uma sessão específica
-    ${response}=    Get Request    api    /sessions/${session_id}
+    ${response}=    Get On Session    api    /sessions/${session_id}
     [Return]    ${response}
 
 Atualizar Sessão
-    [Arguments]    ${session_id}    ${payload}
+    [Arguments]    ${session_id}    ${payload}    ${token}
     [Documentation]    Atualiza uma sessão existente (admin)
-    ${response}=    Put Request    api    /sessions/${session_id}    json=${payload}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${response}=    Put On Session    api    /sessions/${session_id}    json=${payload}    headers=${headers}
     [Return]    ${response}
 
 Deletar Sessão
-    [Arguments]    ${session_id}
+    [Arguments]    ${session_id}    ${token}
     [Documentation]    Deleta uma sessão existente (admin)
-    ${response}=    Delete Request    api    /sessions/${session_id}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${response}=    Delete On Session    api    /sessions/${session_id}    headers=${headers}
     [Return]    ${response}

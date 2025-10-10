@@ -4,6 +4,7 @@ Library           RequestsLibrary
 Library           JSONLibrary
 Library           Collections
 Library           OperatingSystem
+Library           BuiltIn
 Resource          variables.robot
 
 *** Keywords ***

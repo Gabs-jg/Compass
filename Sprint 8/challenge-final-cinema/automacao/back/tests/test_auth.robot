@@ -2,15 +2,19 @@
 Resource    ../resources/keywords/auth_keywords.robot
 
 *** Variables ***
-${TOKEN}  None
+${EMAIL_TEST}    teste@teste.com
+${NOME_TEST}     Nome Teste
+${SENHA_TEST}    Senha123
 
 *** Test Cases ***
+
 Registrar Usuario Com Dados Validos
-    ${response}=    Registrar Usuario Valido    Nome Teste    teste@teste.com    Senha123
+    Criar Sessão da API
+    ${response}=    Registrar Usuario Valido    ${NOME_TEST}    ${EMAIL_TEST}    ${SENHA_TEST}
     Should Be Equal As Integers    ${response.status_code}    201
 
 Registrar Usuario Com Email Ja Cadastrado
-    ${response}=    Registrar Usuario Email Existente    Nome Teste    teste@teste.com    Senha123
+    ${response}=    Registrar Usuario Email Existente    ${NOME_TEST}    ${EMAIL_TEST}    ${SENHA_TEST}
     Should Be Equal As Integers    ${response.status_code}    400
 
 Registrar Usuario Com Dados Invalidos
@@ -19,18 +23,19 @@ Registrar Usuario Com Dados Invalidos
     Should Be Equal As Integers    ${response.status_code}    400
 
 Autenticar Usuario Valido
-    ${response}=    Autenticar Usuario Valido    teste@teste.com    Senha123
+    ${response}=    Autenticar Usuario Valido    ${EMAIL_TEST}    ${SENHA_TEST}
     Should Be Equal As Integers    ${response.status_code}    200
-    ${TOKEN}=    Set Suite Variable    ${response.json()['token']}
+    ${token}=    Set Variable    ${response.json()['data']['token']}
+    Atualizar Token    ${token}
 
 Autenticar Usuario Inexistente
-    ${response}=    Autenticar Usuario Inexistente    inexistente@teste.com    Senha123
+    ${response}=    Autenticar Usuario Inexistente    inexistente@teste.com    ${SENHA_TEST}
     Should Be Equal As Integers    ${response.status_code}    401
 
 Autenticar Com Senha Incorreta
-    ${response}=    Autenticar SenhaIncorreta    teste@teste.com    SenhaErrada
+    ${response}=    Autenticar Senha Incorreta    ${EMAIL_TEST}    SenhaErrada
     Should Be Equal As Integers    ${response.status_code}    401
 
 Visualizar Perfil Usuario Logado
-    ${response}=    Visualizar Perfil UsuarioLogado    ${TOKEN}
+    ${response}=    Visualizar Perfil Usuario Logado    ${AUTH_TOKEN}
     Should Be Equal As Integers    ${response.status_code}    200

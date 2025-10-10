@@ -8,7 +8,7 @@ Listar Todas as Sessões
 
 Criar Sessão
     ${payload}=    Create Dictionary    movie_id=1    theater_id=1    horario=2025-10-10T20:00:00
-    ${response}=    Criar Sessão    ${payload}
+    ${response}=    Criar Sessão    ${payload}    ${AUTH_TOKEN}
     Should Be Equal As Integers    ${response.status_code}    201
 
 Visualizar Detalhes da Sessão
@@ -19,10 +19,10 @@ Visualizar Detalhes da Sessão
 Atualizar Sessão
     ${session_id}=    Set Variable    1
     ${payload}=    Create Dictionary    movie_id=1    theater_id=1    horario=2025-10-11T20:00:00
-    ${response}=    Atualizar Sessão    ${session_id}    ${payload}
+    ${response}=    Atualizar Sessão    ${session_id}    ${payload}    ${AUTH_TOKEN}
     Should Be Equal As Integers    ${response.status_code}    200
 
 Deletar Sessão
     ${session_id}=    Set Variable    1
-    ${response}=    Deletar Sessão    ${session_id}
+    ${response}=    Deletar Sessão    ${session_id}    ${AUTH_TOKEN}
     Should Be Equal As Integers    ${response.status_code}    200

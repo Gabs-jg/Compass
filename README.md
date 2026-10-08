@@ -1,2 +1,2 @@
 # Compass
-Esse repositório cont;em documentos desenvolvidos no programa de bolsas.
+Esse repositório contém documentos desenvolvidos no programa de bolsas.
